@@ -20,7 +20,7 @@
     </data-source>
     <data-source name="Rails PM.server: production" uuid="d654c4ee-3de1-4506-a83d-559ccd7b59b4">
       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="POSTGRES" exact-version="0" />
-      <user-name>PM_server</user-name>
+      <user-name>izedeiwdcfyjna</user-name>
     </data-source>
     <data-source name="Rails PM.server: test" uuid="2b99e896-e8e9-47ba-8126-25c569ea7997">
       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="POSTGRES" exact-version="0" />

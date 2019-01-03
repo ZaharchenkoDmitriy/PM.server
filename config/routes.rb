@@ -6,5 +6,4 @@ Rails.application.routes.draw do
   #     get 'test', action: :test, controller: 'test'
   #   end
   # end
-
 end
