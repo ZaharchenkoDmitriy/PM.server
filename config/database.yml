@@ -70,9 +70,10 @@ test:
 #
 production:
   <<: *default
-  database: pm
-    username: izedeiwdcfyjna
-    password: 60e252ebd7a606a329c43bb3899d007b8d53fbd5f7c51a24c24341ef2ac26f40
-    host: ec2-54-235-80-210.compute-1.amazonaws.com
-    port: 5432
-    schema_search_path: der7dffj0kglb0
+  database: der7dffj0kglb0
+  encoding: utf8
+  pool: 15
+  host: ec2-54-235-80-210.compute-1.amazonaws.com
+  port: 5432
+  username: izedeiwdcfyjna
+  password: 60e252ebd7a606a329c43bb3899d007b8d53fbd5f7c51a24c24341ef2ac26f40
