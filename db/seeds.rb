@@ -5,3 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+for i in 1..6 do
+  work = Work.create(title: "Test work #{i}", price: 2.30 + i)
+  project = Project.create(title: "Test project #{i}", address: "Test address #{i}")
+  ProjectWork.create(project_id: project.id, work_id: work.id, square: 4.5 + i)
+end
