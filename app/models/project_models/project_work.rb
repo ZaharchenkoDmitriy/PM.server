@@ -2,15 +2,15 @@ class ProjectWork < ApplicationRecord
   belongs_to :project
   belongs_to :work
 
-  attr_accessor :work
-  attr_accessor :project
+  attribute :work, :Work
+  attribute :project, :Project
 
   def json
     {
-        title: self.work.title,
-        price: self.work.price.to_s,
-        cost: self.cost,
-        square: self.square
+        title: work.title,
+        price: work.price.to_s,
+        cost: cost,
+        square: square
     }
   end
 end
