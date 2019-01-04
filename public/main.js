@@ -312,7 +312,7 @@ module.exports = "#create-button {\r\n  display: block;\r\n  margin-top: 10px;\r
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n  <form (submit)=\"work ? updateWork() : createWork()\">\r\n    <h2>\r\n      {{work ? 'Редактировать работу' : 'Добавить работу'}}\r\n    </h2>\r\n\r\n    <div class=\"form-input-light\">\r\n      <label for=\"work-title\">название работы<span>{{viewWork.title}}</span></label>\r\n      <input type=\"text\"\r\n             name='work-title'\r\n             [(ngModel)]=\"viewWork.title\">\r\n    </div>\r\n\r\n    <div class=\"form-input-light\">\r\n      <label for=\"work-price\">цена <span>{{viewWork.price}}</span></label>\r\n      <input type=\"text\"\r\n             name='work-price'\r\n             [(ngModel)]=\"viewWork.price\">\r\n    </div>\r\n    <button type=\"submit\"\r\n            id=\"create-button\"\r\n            class=\"light-button\">\r\n      {{work ? 'Сохранить': 'Создать'}}\r\n    </button>\r\n  </form>\r\n</div>\r\n\r\n"
+module.exports = "<div>\r\n  <form (submit)=\"work ? updateWork() : createWork()\">\r\n    <h2>\r\n      {{work ? 'Редактировать работу' : 'Добавить работу'}}\r\n    </h2>\r\n\r\n    <div class=\"form-input-light\">\r\n      <label for=\"work-title\">название работы<span>{{viewWork.title}}</span></label>\r\n      <input type=\"text\"\r\n             name='work-title'\r\n             [(ngModel)]=\"viewWork.title\">\r\n    </div>\r\n\r\n    <div class=\"form-input-light\">\r\n      <label for=\"work-price\">цена <span>{{viewWork.price}}</span></label>\r\n      <input type=\"text\"\r\n             name='work-price'\r\n             [(ngModel)]=\"viewWork.price\">\r\n    </div>\r\n    <button type=\"submit\"\r\n            id=\"create-button\"\r\n            class=\"light-button\">\r\n      {{work ? 'Сохранить': 'Создать'}}\r\n    </button>\r\n  </form>\r\n</div>\r\n\r\nw\r\n"
 
 /***/ }),
 
@@ -354,7 +354,7 @@ var CreateWorkFormComponent = /** @class */ (function () {
             this.viewWork = this.work;
         }
         else {
-            this.viewWork = new _models_work__WEBPACK_IMPORTED_MODULE_1__["Work"]('', 0);
+            // this.viewWork = new Work('', 0);
         }
     }
     CreateWorkFormComponent.prototype.ngOnInit = function () {
@@ -362,7 +362,7 @@ var CreateWorkFormComponent = /** @class */ (function () {
     };
     CreateWorkFormComponent.prototype.createWork = function () {
         this.categoryService.createWorkForCategory(this.viewWork, this.category);
-        this.viewWork = new _models_work__WEBPACK_IMPORTED_MODULE_1__["Work"]('', 0.00);
+        // this.viewWork = new Work('', 0.00);
         this.close.emit();
     };
     CreateWorkFormComponent.prototype.updateWork = function () {
@@ -508,12 +508,19 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var ProjectComponent = /** @class */ (function () {
     function ProjectComponent(worksService) {
         this.worksService = worksService;
-        this.works = this.worksService.getWorksForProject();
     }
     ProjectComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.worksService.setProjectId(this.projectId);
+        this.worksService.getAll();
+        this.worksService.objects.subscribe(function (works) { return _this.works = works; });
     };
     ProjectComponent.prototype.openAddWorkForm = function () {
     };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Number)
+    ], ProjectComponent.prototype, "projectId", void 0);
     ProjectComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-project',
@@ -547,7 +554,7 @@ module.exports = "#projects-list {\r\n  list-style-type: none;\r\n  margin: 0;\r
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ul id=\"projects-list\">\r\n  <li class=\"project\"\r\n      *ngFor=\"let project of projects\">\r\n    <button type=\"button\"\r\n            class=\"project-toggle\"\r\n            data-toggle=\"collapse\"\r\n            [attr.data-target]=\"'#collapse' + project.id\"\r\n            aria-expanded=\"false\"\r\n            [attr.aria-controls]=\"'collapse' + project.id\">\r\n      {{project.title}}\r\n    </button>\r\n    <div class=\"collapse\" id=\"collapse{{project.id}}\">\r\n      <div class=\"card card-body\">\r\n        {{project.title}}\r\n      </div>\r\n    </div>\r\n  </li>\r\n</ul>\r\n"
+module.exports = "<ul id=\"projects-list\">\r\n  <li class=\"project\"\r\n      *ngFor=\"let project of projects\">\r\n    <button type=\"button\"\r\n            class=\"project-toggle\"\r\n            data-toggle=\"collapse\"\r\n            [attr.data-target]=\"'#collapse' + project.id\"\r\n            aria-expanded=\"false\"\r\n            [attr.aria-controls]=\"'collapse' + project.id\">\r\n      {{project.title}}\r\n    </button>\r\n    <div class=\"collapse\" id=\"collapse{{project.id}}\">\r\n      <div class=\"card card-body\">\r\n        <div class=\"project-address\">{{ project.address }}</div>\r\n      </div>\r\n    </div>\r\n  </li>\r\n</ul>\r\n"
 
 /***/ }),
 
@@ -576,11 +583,13 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 var ProjectsComponent = /** @class */ (function () {
     function ProjectsComponent(projectService) {
-        var _this = this;
         this.projectService = projectService;
-        projectService.projects.subscribe(function (prs) { return _this.projects = prs; });
     }
-    ProjectsComponent.prototype.ngOnInit = function () { };
+    ProjectsComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.projectService.getAll();
+        this.projectService.objects.subscribe(function (projects) { return _this.projects = projects; });
+    };
     ProjectsComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-projects',
@@ -977,9 +986,12 @@ var State = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Work", function() { return Work; });
 var Work = /** @class */ (function () {
-    function Work(title, price) {
+    function Work(id, title, price, cost, square) {
+        this.id = id;
         this.title = title;
         this.price = price;
+        this.cost = cost;
+        this.square = square;
     }
     return Work;
 }());
@@ -1330,7 +1342,18 @@ var ProjectService = /** @class */ (function (_super) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WorksService", function() { return WorksService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _models_work__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../models/work */ "./src/app/models/work.ts");
+/* harmony import */ var _crud_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../crud-service */ "./src/app/services/crud-service.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1342,27 +1365,35 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
-var WorksService = /** @class */ (function () {
+
+var WorksService = /** @class */ (function (_super) {
+    __extends(WorksService, _super);
     function WorksService() {
-        this.works = [];
-        var work = new _models_work__WEBPACK_IMPORTED_MODULE_1__["Work"]('title', 20);
-        work.title = 'title';
-        this.works.push(work);
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.projectId = null;
+        _this.projects = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]([]);
+        _this.crudUrl = "projects/" + _this.projectId + "/works";
+        _this.setProjectId = function (projectId) {
+            _this.projectId = projectId;
+            _this.crudUrl = "projects/" + projectId + "/works";
+        };
+        return _this;
     }
-    WorksService.prototype.getWorksForProject = function () {
-        return this.works;
-    };
-    WorksService.prototype.createWork = function (work) {
-        this.works.push(work);
-    };
+    __decorate([
+        _crud_service__WEBPACK_IMPORTED_MODULE_1__["crudObjects"],
+        __metadata("design:type", rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"])
+    ], WorksService.prototype, "projects", void 0);
+    __decorate([
+        _crud_service__WEBPACK_IMPORTED_MODULE_1__["crudUrl"],
+        __metadata("design:type", Object)
+    ], WorksService.prototype, "crudUrl", void 0);
     WorksService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
-        }),
-        __metadata("design:paramtypes", [])
+        })
     ], WorksService);
     return WorksService;
-}());
+}(_crud_service__WEBPACK_IMPORTED_MODULE_1__["CrudService"]));
 
 
 
@@ -1383,7 +1414,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 var environment = {
     production: false,
-    host: 'http://localhost:3000/'
+    host: 'http://localhost:3000/api'
 };
 /*
  * In development mode, to ignore zone related error stack frames such as
