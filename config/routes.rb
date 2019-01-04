@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     constraints subdomain: 'api' do
+      resource 'project/projects'
     end
   end
 end
