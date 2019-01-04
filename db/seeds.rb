@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 for i in 1..6 do
-  work = Work.create(title: "Test work #{i}", price: 2.30 + i)
-  project = Project.create(title: "Test project #{i}", address: "Test address #{i}")
+  work = Work.create(title: "Название работы #{i}", price: 2.30 + i)
+  project = Project.create(title: "Имя проекта #{i}", address: "Тестовый адресс #{i}")
   ProjectWork.create(project_id: project.id, work_id: work.id, square: 4.5 + i)
 end

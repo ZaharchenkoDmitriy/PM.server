@@ -14,6 +14,7 @@ class Project < ApplicationRecord
   def json
     {
         title: title,
+        address: address,
         id: id
     }
   end

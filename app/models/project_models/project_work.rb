@@ -12,7 +12,7 @@ class ProjectWork < ApplicationRecord
     {
         title: work.title,
         price: work.price.to_s,
-        cost: cost,
+        cost: (square * work.price).to_s,
         square: square
     }
   end
