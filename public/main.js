@@ -354,7 +354,7 @@ var CreateWorkFormComponent = /** @class */ (function () {
             this.viewWork = this.work;
         }
         else {
-            // this.viewWork = new Work('', 0);
+            this.viewWork = _models_work__WEBPACK_IMPORTED_MODULE_1__["Work"].defaultWork('', 0);
         }
     }
     CreateWorkFormComponent.prototype.ngOnInit = function () {
@@ -362,7 +362,6 @@ var CreateWorkFormComponent = /** @class */ (function () {
     };
     CreateWorkFormComponent.prototype.createWork = function () {
         this.categoryService.createWorkForCategory(this.viewWork, this.category);
-        // this.viewWork = new Work('', 0.00);
         this.close.emit();
     };
     CreateWorkFormComponent.prototype.updateWork = function () {
@@ -746,7 +745,6 @@ var EditCategoryFormComponent = /** @class */ (function () {
     EditCategoryFormComponent.prototype.ngOnInit = function () {
     };
     EditCategoryFormComponent.prototype.saveCategory = function () {
-        console.log(this.category);
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
@@ -848,7 +846,7 @@ module.exports = "#add-category-button {\r\n  width: 25px;\r\n  height: 25px;\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"categoryEdition\" id=\"pop-up-background\" (click)=\"categoryEdition = false;\">\r\n  <div id=\"container\"\r\n       (click)=\"$event.stopPropagation()\">\r\n    <div id=\"pop-up-navigation\">\r\n      <ul>\r\n        <li *ngFor=\"let state of popUpService.currentStates\"\r\n            [style.width]=\"100/popUpService.currentStates.length + '%'\"\r\n            [class]=\"state.number == popUpService.currentState.number ? 'active' : ''\">\r\n        </li>\r\n      </ul>\r\n    </div>\r\n    <div style=\"width: 95%; margin-left: 2.5%;\" ngSwitch=\"{{popUpService.currentState.title}}\">\r\n      <div *ngSwitchCase=\"'category'\">\r\n        <app-edit-category-form\r\n          [category]=\"selectedCategory\"></app-edit-category-form>\r\n      </div>\r\n      <div *ngSwitchCase=\"'create-work'\">\r\n        <app-create-work-form\r\n          [category]=\"selectedCategory\"></app-create-work-form>\r\n      </div>\r\n      <div *ngSwitchCase=\"'edit-work'\">\r\n        <app-create-work-form\r\n          [work]=\"selectedCategory.works[0]\"></app-create-work-form>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<div [(ngModel)]=\"test.message\"></div>\r\n<app-create-category\r\n  *ngIf=\"categoryCreation\"\r\n  (close)=\"categoryCreation = false\"\r\n  (create)=\"categoryCreation=false\"></app-create-category>\r\n\r\n<div id=\"headers\">\r\n  <span style=\"width: 70%\">Title</span>\r\n  <div id='add-category-button' (click)=\"openCreateCategoryForm()\"></div>\r\n  <span style=\"width: 25%; text-align: end\">Price</span>\r\n</div>\r\n<ul id=\"accordion\">\r\n  <ul *ngFor=\"let category of categories\"\r\n      class=\"card\">\r\n\r\n    <div id=\"category\"\r\n         class=\"card-header\"\r\n         [attr.data-target]='\"#collapse\" + category.id'\r\n         data-toggle=\"collapse\">\r\n      <div class=\"remove-img hidden-delete delete-category\" (click)=\"deleteCategory(category)\"></div>\r\n      <div class=\"category-title\">{{category.title}}</div>\r\n\r\n      <div class=\"category-buttons\">\r\n        <button class=\"create-work-button\"\r\n                (click)=\"openCategoryEditForm(category)\"></button>\r\n      </div>\r\n    </div>\r\n\r\n    <div id=\"collapse{{category.id}}\"\r\n         class=\"collapse\"\r\n         data-parent=\"#accordion\">\r\n      <div class=\"card-body work\">\r\n        <li *ngFor=\"let work of category.works\">\r\n          <span (click)=\"deleteWork(work)\" class=\"hidden-delete remove-work remove-img\"></span>\r\n          <span style=\"flex-grow: 1\">{{work.title}}</span>\r\n          <span style=\"width: 25%; margin-right: 2px; text-align: end;\">{{work.price}} UAH</span>\r\n        </li>\r\n      </div>\r\n    </div>\r\n  </ul>\r\n</ul>\r\n"
+module.exports = "<div *ngIf=\"categoryEdition\" id=\"pop-up-background\" (click)=\"categoryEdition = false;\">\r\n  <div id=\"container\"\r\n       (click)=\"$event.stopPropagation()\">\r\n    <div id=\"pop-up-navigation\">\r\n      <ul>\r\n        <li *ngFor=\"let state of popUpService.currentStates\"\r\n            [style.width]=\"100/popUpService.currentStates.length + '%'\"\r\n            [class]=\"state.number == popUpService.currentState.number ? 'active' : ''\">\r\n        </li>\r\n      </ul>\r\n    </div>\r\n    <div style=\"width: 95%; margin-left: 2.5%;\" ngSwitch=\"{{popUpService.currentState.title}}\">\r\n      <div *ngSwitchCase=\"'category'\">\r\n        <app-edit-category-form\r\n          [category]=\"selectedCategory\"></app-edit-category-form>\r\n      </div>\r\n      <div *ngSwitchCase=\"'create-work'\">\r\n        <app-create-work-form\r\n          [category]=\"selectedCategory\"></app-create-work-form>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<app-create-category\r\n  *ngIf=\"categoryCreation\"\r\n  (close)=\"categoryCreation = false\"\r\n  (create)=\"categoryCreation=false\"></app-create-category>\r\n\r\n<div id=\"headers\">\r\n  <span style=\"width: 70%\">Title</span>\r\n  <div id='add-category-button' (click)=\"openCreateCategoryForm()\"></div>\r\n  <span style=\"width: 25%; text-align: end\">Price</span>\r\n</div>\r\n<ul id=\"accordion\">\r\n  <ul *ngFor=\"let category of categories\"\r\n      class=\"card\">\r\n\r\n    <div id=\"category\"\r\n         class=\"card-header\"\r\n         [attr.data-target]='\"#collapse\" + category.id'\r\n         data-toggle=\"collapse\">\r\n      <div class=\"remove-img hidden-delete delete-category\" (click)=\"deleteCategory(category)\"></div>\r\n      <div class=\"category-title\">{{category.title}}</div>\r\n\r\n      <div class=\"category-buttons\">\r\n        <button class=\"create-work-button\"\r\n                (click)=\"openCategoryEditForm(category)\"></button>\r\n      </div>\r\n    </div>\r\n\r\n    <div id=\"collapse{{category.id}}\"\r\n         class=\"collapse\"\r\n         data-parent=\"#accordion\">\r\n      <div class=\"card-body work\">\r\n        <li *ngFor=\"let work of category.works\">\r\n          <span (click)=\"deleteWork(work)\" class=\"hidden-delete remove-work remove-img\"></span>\r\n          <span style=\"flex-grow: 1\">{{work.title}}</span>\r\n          <span style=\"width: 25%; margin-right: 2px; text-align: end;\">{{work.price}} UAH</span>\r\n        </li>\r\n      </div>\r\n    </div>\r\n  </ul>\r\n</ul>\r\n"
 
 /***/ }),
 
@@ -887,7 +885,9 @@ var WorksComponent = /** @class */ (function () {
         this.categoryEdition = false;
         this.categoryCreation = false;
         this.test = { message: 'not READY' };
-        categoryService.getCategories().subscribe(function (categories) { return _this.categories = categories; });
+        categoryService.getCategories().subscribe(function (categories) {
+            _this.categories = categories;
+        });
     }
     WorksComponent.prototype.ngOnInit = function () {
     };
@@ -897,8 +897,7 @@ var WorksComponent = /** @class */ (function () {
         event.stopPropagation();
         this.popUpService.initStates([
             new _models_state__WEBPACK_IMPORTED_MODULE_3__["State"](0, 'category'),
-            new _models_state__WEBPACK_IMPORTED_MODULE_3__["State"](1, 'create-work'),
-            new _models_state__WEBPACK_IMPORTED_MODULE_3__["State"](2, 'edit-work')
+            new _models_state__WEBPACK_IMPORTED_MODULE_3__["State"](1, 'create-work')
         ]);
     };
     WorksComponent.prototype.openCreateCategoryForm = function () {
@@ -993,6 +992,9 @@ var Work = /** @class */ (function () {
         this.cost = cost;
         this.square = square;
     }
+    Work.defaultWork = function (title, price) {
+        return new Work(0, title, price, 0, 0);
+    };
     return Work;
 }());
 
@@ -1032,7 +1034,7 @@ var CategoryService = /** @class */ (function () {
         var _this = this;
         this.httpClient = httpClient;
         this.categories = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"]([]);
-        var categories = this.httpClient.get(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].host + '/categories');
+        var categories = this.httpClient.get(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].host + '/work_categories');
         this.categories.subscribe(function (gr) { return _this.categoriesArr = gr; });
         categories.subscribe(function (ctgrs) {
             _this.categories.next(ctgrs);
@@ -1042,13 +1044,19 @@ var CategoryService = /** @class */ (function () {
         return this.categories;
     };
     CategoryService.prototype.createWorkForCategory = function (work, category) {
-        category.works.push(work);
-        this.categories.next(this.categoriesArr);
+        var _this = this;
+        this.httpClient.post(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].host + '/work_categories' + ("/" + category.id + "/") + '/works', work).subscribe(function (response) {
+            category.works.push(work);
+            _this.categories.next(_this.categoriesArr);
+        });
     };
     CategoryService.prototype.createCategory = function (category) {
-        category.id = this.categoriesArr.length + 1;
-        this.categoriesArr.push(category);
-        this.categories.next(this.categoriesArr);
+        var _this = this;
+        this.httpClient.post(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].host + '/work_categories', category).subscribe(function (response) {
+            category.id = response.id;
+            _this.categoriesArr.push(category);
+            _this.categories.next(_this.categoriesArr);
+        });
     };
     CategoryService.prototype.deleteWork = function (work) {
         var category = this.categoriesArr.find(function (gr) { return gr.works.indexOf(work) !== -1; });
@@ -1225,7 +1233,6 @@ var PopUpService = /** @class */ (function () {
         var self = this;
         popUp.addEventListener('wheel', function (event) {
             if ((event.timeStamp - _this.switchTimestamp > 20) && Math.abs(event.deltaX) + Math.abs(event.deltaY) > 100) {
-                console.log(event.timeStamp - _this.switchTimestamp);
                 _this.switchTimestamp = event.timeStamp;
                 if (Math.abs(event.deltaY) * 2 > Math.abs(event.deltaX)) {
                     event.deltaY < 0 ? self.nextState() : self.previousState();
@@ -1460,7 +1467,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\prjcts\PM\PM.client\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! E:\projects\PM\PM.client\src\main.ts */"./src/main.ts");
 
 
 /***/ })
