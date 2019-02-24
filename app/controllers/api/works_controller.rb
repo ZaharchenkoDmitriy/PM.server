@@ -11,6 +11,5 @@ class Api::WorksController < ApplicationController
 
   def delete
     Work.find(params[:work_id]).destroy
-    render json {id : params[:work_id]}
   end
 end
