@@ -1,7 +1,7 @@
 class WorkCategory < ApplicationRecord
   attribute :title, :string
 
-  has_many :works
+  has_many :works, dependent: :destroy
 
   def json
     {

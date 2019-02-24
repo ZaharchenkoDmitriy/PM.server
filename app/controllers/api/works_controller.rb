@@ -9,7 +9,8 @@ class Api::WorksController < ApplicationController
                              work_category_id: params[:work_category_id]).json
   end
 
-  def delete
-    Work.find(params[:work_id]).destroy
+  def destroy
+    Work.find(params[:id]).destroy
+    render json: {id: params[:id]}
   end
 end
