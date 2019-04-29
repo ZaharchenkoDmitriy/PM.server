@@ -3,6 +3,13 @@ class WorkCategory < ApplicationRecord
 
   has_many :works, dependent: :destroy
 
+  def json_lite
+    {
+        id: id,
+        title: title
+    }
+  end
+
   def json
     {
         id: id,
