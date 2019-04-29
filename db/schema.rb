@@ -15,21 +15,16 @@ ActiveRecord::Schema.define(version: 20190103164532) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "products", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "project_works", force: :cascade do |t|
     t.float "square"
-    t.integer "cost_cents", default: 0, null: false
-    t.string "cost_currency", default: "USD", null: false
-    t.integer "project_id"
-    t.integer "work_id"
+    t.integer "price_cents", default: 0, null: false
+    t.string "price_currency", default: "USD", null: false
+    t.bigint "project_id"
+    t.bigint "work_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_project_works_on_project_id"
+    t.index ["work_id"], name: "index_project_works_on_work_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -39,13 +34,23 @@ ActiveRecord::Schema.define(version: 20190103164532) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "works", force: :cascade do |t|
-    t.integer "price_cents", default: 0, null: false
-    t.string "price_currency", default: "USD", null: false
+  create_table "work_categories", force: :cascade do |t|
     t.string "title"
-    t.integer "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "works", force: :cascade do |t|
+    t.integer "price_cents", default: 0, null: false
+    t.string "price_currency", default: "USD", null: false
+    t.string "title"
+    t.bigint "work_category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["work_category_id"], name: "index_works_on_work_category_id"
+  end
+
+  add_foreign_key "project_works", "projects"
+  add_foreign_key "project_works", "works"
+  add_foreign_key "works", "work_categories"
 end

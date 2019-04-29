@@ -3,7 +3,7 @@ class CreateWorks < ActiveRecord::Migration[5.1]
     create_table :works do |t|
       t.monetize :price
       t.string :title
-      t.integer :category_id
+      t.belongs_to :work_category, index: true, foreign_key: true
 
       t.timestamps
     end

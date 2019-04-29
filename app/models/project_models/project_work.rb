@@ -10,8 +10,9 @@ class ProjectWork < ApplicationRecord
 
   def json
     {
+        id: id,
         title: work.title,
-        price: work.price.to_s,
+        price: price.present? ? price : work.price.to_s,
         cost: (square * work.price).to_s,
         square: square
     }
