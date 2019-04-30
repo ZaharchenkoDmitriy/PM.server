@@ -11,5 +11,5 @@ Rails.application.routes.draw do
     end
   end
 
-  get '*path' => redirect('/')
+  get '*path' => 'application#index'
 end
