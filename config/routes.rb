@@ -10,4 +10,6 @@ Rails.application.routes.draw do
       resources :project_works
     end
   end
+
+  get '*path' => redirect('/')
 end
