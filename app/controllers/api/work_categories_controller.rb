@@ -1,6 +1,6 @@
 class Api::WorkCategoriesController < ApplicationController
   def index
-    categories = WorkCategory.where(true)
+    categories = WorkCategory.where('true')
     categories = !!params[:list_view] ? categories.map(&:json_lite) : categories.map(&:json)
     render json: categories
   end

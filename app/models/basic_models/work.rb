@@ -5,6 +5,7 @@ class Work < ApplicationRecord
   has_many :project_works, dependent: :destroy
 
   attribute :title, :string
+  attribute :work_category_id
 
   def json
     {
