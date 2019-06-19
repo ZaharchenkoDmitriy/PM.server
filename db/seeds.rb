@@ -6,9 +6,14 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+project = Project.create(title: "Кемерово",
+                         address: "Шального 9",
+                         date_start: Date.today - 1,
+                         date_end: Date.today + 10)
+
 category = WorkCategory.create(title: 'Text categories')
-for i in 1..6 do
+
+for i in 1..3 do
   work = Work.create(title: "Название работы #{i}", price: 2.30 + i, work_category_id: category.id)
-  project = Project.create(title: "Имя проекта #{i}", address: "Тестовый адресс #{i}")
-  ProjectWork.create(project_id: project.id, work_id: work.id, square: 4.5 + i)
+  ProjectWork.create(project_id: project.id, work_id: work.id, square: 2.3 + i)
 end
