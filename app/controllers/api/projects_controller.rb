@@ -1,5 +1,7 @@
 class Api::ProjectsController < ApplicationController
   def index
+    puts params
+
     render json: Project.all.map(&:json)
   end
 
@@ -9,6 +11,7 @@ class Api::ProjectsController < ApplicationController
 
   def create
     params[:project].permit!
+
     render json: Project.create(params[:project]).json
   end
 
